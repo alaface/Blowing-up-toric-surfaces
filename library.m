@@ -41,8 +41,7 @@ end function;
 // OUTPUT: the toric surface defined by the fan
 
 ToricFromRays := function(Q,ra)
- rr := Reorder(ra);
- F := Fan([Cone(r) : r in [[rr[i],rr[i+1]] : i in [1..#rr-1]] cat [[rr[#rr],rr[1]]]]);
+ F := Fan([Cone(r) : r in [[ra[i],ra[i+1]] : i in [1..#ra-1]] cat [[ra[#ra],ra[1]]]]);
  X<[x]> := ToricVariety(Q,F);
  return X;
 end function;
