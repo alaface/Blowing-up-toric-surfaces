@@ -109,10 +109,26 @@ TestComp := function(ra);
  comp := Set(&cat[PrimeComponents(Scheme(A,I+Ideal(A.i))) : i in [1..r]]);
  comp := [C : C in comp | IsSubscheme(Scheme(A,Ideal(C)^2),Scheme(A,I))];
  if #comp gt 0 then return false,comp;
- else return true;
+ else return true,0;
  end if;
 end function;
 
+// CompIndices
+// INPUT: the rays of a two dimensional fan
+// OUTPUT: the sets {i,j,k} such that the lattice ideal of the toric surface is contained in  <x_i,x_j,x_k>^2
+
+CompIndices := function(ra)
+ bol,comp := TestComp(ra);
+ if not bol then
+  lis := {};
+  for C in comp do
+   v := {Position(Exponents(Monomials(B)[1]),1) : B in MinimalBasis(C)};
+   Include(~lis,v);
+  end for;
+  return lis;
+ else return [];
+ end if;
+end function;
 
 // IsIsom
 // INPUT: two sequences of two dimensional rays 
@@ -123,6 +139,6 @@ IsIsom := function(a,b)
  b := Reorder(b);
  G := DihedralGroup(#a);
  mm := [Transpose(Matrix([a[i^u] : i in [1..#a]])) : u in G];
- return &or[IsConsistent(Transpose(Matrix(b)),M) : M in mm];
+ return #a eq #b and &or[IsConsistent(Transpose(Matrix(b)),M) : M in mm];
 end function;
 
