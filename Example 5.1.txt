@@ -1,0 +1,17 @@
+> load "library.m";
+> ra := [[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1],[0,-1],[1,-1]]; 
+> LatticeIdeal(ra);            
+Ideal of Polynomial ring of rank 8 over Rational Field
+Order: Lexicographical
+Variables: x[1], x[2], x[3], x[4], x[5], x[6], x[7], x[8]
+Homogeneous
+Basis:
+[
+    -x[1]*x[7]*x[8]^2 + x[3]*x[4]^2*x[5],
+    x[1]*x[2]^2*x[3] - x[5]*x[6]^2*x[7],
+    x[2]*x[3]*x[4] - x[6]*x[7]*x[8],
+    x[1]*x[2]*x[8] - x[4]*x[5]*x[6]
+]
+> TestMultOne(ra);
+true
+
