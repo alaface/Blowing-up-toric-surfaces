@@ -1,17 +1,25 @@
-> load "library.m";
-> ra := [[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1],[0,-1],[1,-1]]; 
-> LatticeIdeal(ra);            
-Ideal of Polynomial ring of rank 8 over Rational Field
-Order: Lexicographical
-Variables: x[1], x[2], x[3], x[4], x[5], x[6], x[7], x[8]
-Homogeneous
-Basis:
-[
-    -x[1]*x[7]*x[8]^2 + x[3]*x[4]^2*x[5],
-    x[1]*x[2]^2*x[3] - x[5]*x[6]^2*x[7],
-    x[2]*x[3]*x[4] - x[6]*x[7]*x[8],
-    x[1]*x[2]*x[8] - x[4]*x[5]*x[6]
-]
-> TestMultOne(ra);
-true
+load "library.m";
 
+rays := [[1,0],[2,1],[1,1],[1,2],[0,1],[-1,2],[-1,1],[-2,1],[-1,0],[-2,-1],[-1,-1],[-1,-2],[0,-1],[1,-2],[1,-1],[2,-1]];
+
+S := CompIndices(rays);                                                     
+lis0 := {U : U in Subsets({1..16}) | #U ge 4 and 3 notin {#(U meet V) : V in S}};
+
+lis1 := lis0;
+for U in lis0 do
+ lis1 := lis1 diff {V : V in lis1 | V subset U and V ne U};
+end for;
+
+lis1 := [Reorder([rays[i] : i in U]) : U in lis1];
+ll := {lis1[1]};
+for i in [1..#lis1] do
+ ra := lis1[i];
+  if not &or[IsIsom(ra,u) : u in ll] then Include(~ll,ra); 
+ end if;
+end for;
+
+lis := [Sort([Position(rays,u[i]) : i in [1..#u]]) : u in ll];
+
+for R in ll do
+ TestMultOne(R);
+end for;
