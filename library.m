@@ -139,7 +139,8 @@ IsIsom := function(a,b)
  b := Reorder(b);
  G := DihedralGroup(#a);
  mm := [Transpose(Matrix([a[i^u] : i in [1..#a]])) : u in G];
- return #a eq #b and &or[IsConsistent(Transpose(Matrix(b)),M) : M in mm];
+ B := Transpose(Matrix(b));
+ return #a eq #b and &or[IsConsistent(B,M) and IsConsistent(M,B) : M in mm];
 end function;
 
 // qua 
