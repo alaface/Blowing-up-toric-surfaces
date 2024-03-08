@@ -273,20 +273,24 @@ IsMDS := function(ra,m)
  S := GensUpTo(ra,m);
  Eff := Cone(S);
  M := IntMatBl(ra);
- for F in Facets(Eff) do
-  R := Rays(F);
-  MM := Matrix(#R,#R,[qua(a,b,M) : a,b in R]);
-  if not IsNegativeSemiDefinite(MM) 
-   then return false;
-  end if;
- end for;
  Nef := Dual(Eff*M);
  rr := Rays(Nef);
  Cl := Ambient(Eff);
- Test := true;
- for D in rr do
-  perp := [i : i in [1..#S] | qua(D,S[i],M) eq 0];
-  Test := Test and Cl!Eltseq(D) in &meet[Cone(Remove(S,i)) : i in perp];
+ for N in rr do
+  F := [D : D in S | qua(D,N,M) eq 0];
+  MM := Matrix(#F,#F,[qua(a,b,M) : a,b in F]);
+  if not IsNegativeSemiDefinite(MM) or #F lt Dimension(Cl) - 1
+  // then return false;
+  then #F;
+  end if;
  end for;
- return Test;
+ Test := true;
+ for N in rr do
+  perp := [i : i in [1..#S] | qua(N,S[i],M) eq 0];
+  for i in perp do
+   rr := Rays(Dual(Cone(Remove(S,i))*M));
+   if not &and[qua(N,R,M) ge 0 : R in rr] then return false; end if;
+  end for;
+ end for;
+ return true;
 end function;
