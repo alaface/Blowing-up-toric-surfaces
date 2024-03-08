@@ -23,3 +23,8 @@ lis := [Sort([Position(rays,u[i]) : i in [1..#u]]) : u in ll];
 for R in ll do
  TestMultOne(R);
 end for;
+
+ra := [rays[2*i] : i in [1..8]];
+GensUpTo(ra,2);
+IsMDS(ra,2);
+
