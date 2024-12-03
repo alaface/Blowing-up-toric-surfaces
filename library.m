@@ -280,8 +280,7 @@ IsMDS := function(ra,m)
   F := [D : D in S | qua(D,N,M) eq 0];
   MM := Matrix(#F,#F,[qua(a,b,M) : a,b in F]);
   if not IsNegativeSemiDefinite(MM) or #F lt Dimension(Cl) - 1
-  // then return false;
-  then #F;
+   then return false;
   end if;
  end for;
  Test := true;
