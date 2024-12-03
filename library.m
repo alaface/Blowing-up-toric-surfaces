@@ -264,6 +264,29 @@ PseudoNef := function(ra,m)
 end function;
 
 
+// IsEff
+// INPUT: a list of rays, a positive integer m
+// OUTPUT: true if the effective cone is generated 
+// in multiplicity at most m
+
+IsEff := function(ra,m)
+ S := GensUpTo(ra,m);
+ Eff := Cone(S);
+ M := IntMatBl(ra);
+ Nef := Dual(Eff*M);
+ rr := Rays(Nef);
+ Cl := Ambient(Eff);
+ for N in rr do
+  F := [D : D in S | qua(D,N,M) eq 0];
+  MM := Matrix(#F,#F,[qua(a,b,M) : a,b in F]);
+  if not IsNegativeSemiDefinite(MM) or #F lt Dimension(Cl) - 1
+   then return false;
+  end if;
+ end for;
+ return true;
+ end function;
+
+
 // IsMDS
 // INPUT: a list of rays, a positive integer m
 // OUTPUT: true if there is a pseudo generating
