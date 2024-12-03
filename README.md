@@ -70,6 +70,7 @@ for R in ll do
 end for;
 
 // Step 5: Compute Cox ring generators and test if the fan corresponds to a Mori dream space
+Q := Rationals();
 ra := [rays[2*i] : i in [1..8]];
-GensUpTo(ra,2);
-IsMDS(ra,2);
+GensUpTo(Q,ra,2);
+IsMDS(Q,ra,2);
