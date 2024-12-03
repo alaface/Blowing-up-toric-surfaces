@@ -2,16 +2,35 @@
 
 This library provides a set of functions to work with toric surfaces in the Magma computational algebra system. The library includes functionality for reordering rays, constructing toric surfaces, computing lattice ideals, and studying the Cox ring of the blow-up at a general point.
 
-## Features
+## Functions Overview
 
-- **Reordering Rays**: Order rays of a two-dimensional fan based on their angular relationship.
-- **Toric Varieties**: Create toric varieties and compute their lattice ideals.
-- **Intersection Theory**: Compute intersection matrices for Weil divisors, class groups, and blow-ups.
-- **Cox Ring**: Generate and analyze the Cox ring of blow-ups of projective planes.
-- **Isomorphism Testing**: Check if two fans define isomorphic toric surfaces.
-- **Effective Cones**: Study the pseudo-effective and pseudo-nef cones of toric surfaces.
+- **Fan Manipulation**
+  - `Reorder`: Reorders rays based on angular relationships.
+  - `NextOne`: Finds the next ray in a sequence based on orientation.
+
+- **Toric Geometry**
+  - `ToricFromRays`: Constructs a toric variety from rays.
+  - `LatticeIdeal`: Computes the lattice ideal of a toric variety.
+
+- **Cox Ring Analysis**
+  - `MultOneIdeal`: Computes the saturation of an ideal up to multiplicity one.
+  - `GensUpTo`: Generates classes of the Cox ring up to a specified multiplicity.
+  - `IsMDS`: Tests if the fan defines a Mori dream space.
+
+- **Intersection Theory**
+  - `IntMatWeil`: Computes the intersection matrix for Weil divisors.
+  - `IntMatCl`: Computes the intersection matrix for the class group.
+  - `IntMatBl`: Computes the intersection matrix for the blow-up of a projective plane.
+
+- **Other Utilities**
+  - `IsIsom`: Checks isomorphism between two fans.
+  - `CompIndices`: Identifies subsets of rays satisfying specific combinatorial conditions.
 
 ---
+
+## Dependencies
+
+- **Magma**: The library is designed to be used with the Magma computational algebra system.
 
 ## Example Usage
 
